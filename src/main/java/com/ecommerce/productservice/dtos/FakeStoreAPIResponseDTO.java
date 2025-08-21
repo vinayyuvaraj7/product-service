@@ -17,7 +17,7 @@ public class FakeStoreAPIResponseDTO {
 
     public Product toProduct() {
         Product product = new Product();
-        product.setId(getId());
+//        product.setId(getId());
         product.setTitle(getTitle());
         product.setDescription(getDescription());
         product.setPrice(getPrice());
