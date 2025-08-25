@@ -17,7 +17,7 @@ public class UpdateProductRequestDTO {
 
     public Product toProduct() {
         Product product = new Product();
-//        product.setId(id);
+        product.setId(id);
         product.setTitle(title);
         product.setDescription(description);
         product.setPrice(price);

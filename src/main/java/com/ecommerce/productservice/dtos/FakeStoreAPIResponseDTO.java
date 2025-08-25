@@ -1,5 +1,6 @@
 package com.ecommerce.productservice.dtos;
 
+import com.ecommerce.productservice.models.BaseModel;
 import com.ecommerce.productservice.models.Category;
 import com.ecommerce.productservice.models.Product;
 import lombok.Getter;
@@ -17,7 +18,8 @@ public class FakeStoreAPIResponseDTO {
 
     public Product toProduct() {
         Product product = new Product();
-//        product.setId(getId());
+
+        product.setId(id);
         product.setTitle(getTitle());
         product.setDescription(getDescription());
         product.setPrice(getPrice());

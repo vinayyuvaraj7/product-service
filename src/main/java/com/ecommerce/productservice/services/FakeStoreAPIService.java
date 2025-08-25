@@ -13,7 +13,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service
+@Service("fakeStoreAPIService")
 public class FakeStoreAPIService implements ProductService {
 
     private RestTemplate restTemplate;
@@ -35,9 +35,9 @@ public class FakeStoreAPIService implements ProductService {
 
         FakeStoreAPIResponseDTO responseDTO = responseEntity.getBody();
 
-//        if (responseDTO == null) {
-//            throw new ProductNotFoundException("Product not found!");
-//        }
+        if (responseDTO == null) {
+            throw new ProductNotFoundException("Product not found!");
+        }
 
         ResponseEntity<Product> productResponseEntity =
                 new ResponseEntity<>(responseEntity.getBody().toProduct(),  HttpStatus.OK);
@@ -46,15 +46,14 @@ public class FakeStoreAPIService implements ProductService {
     }
 
     @Override
-    public Product createProduct(String title, String description,
-                                 double price, String image, String category) {
+    public Product createProduct(Product product) {
 
         FakeStoreAPIRequestDTO requestDTO = new FakeStoreAPIRequestDTO(
-                title,
-                description,
-                price,
-                image,
-                category
+                product.getTitle(),
+                product.getDescription(),
+                product.getPrice(),
+                product.getImageURL(),
+                product.getCategory().getName()
         );
 
         FakeStoreAPIResponseDTO responseDTO = restTemplate.postForObject(
