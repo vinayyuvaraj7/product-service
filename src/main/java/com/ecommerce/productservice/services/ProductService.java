@@ -1,7 +1,5 @@
 package com.ecommerce.productservice.services;
 
-import com.ecommerce.productservice.dtos.FakeStoreAPIResponseDTO;
-import com.ecommerce.productservice.dtos.UpdateProductRequestDTO;
 import com.ecommerce.productservice.exceptions.ProductNotFoundException;
 import com.ecommerce.productservice.models.Product;
 import org.springframework.http.ResponseEntity;

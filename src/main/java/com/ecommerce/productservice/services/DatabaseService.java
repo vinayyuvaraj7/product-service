@@ -5,8 +5,6 @@ import com.ecommerce.productservice.models.Category;
 import com.ecommerce.productservice.models.Product;
 import com.ecommerce.productservice.repositories.CategoryRepository;
 import com.ecommerce.productservice.repositories.ProductRepository;
-import org.springframework.context.annotation.Primary;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 

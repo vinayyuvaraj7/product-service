@@ -1,23 +1,14 @@
 package com.ecommerce.productservice.controllers;
 
 import com.ecommerce.productservice.dtos.CreateProductRequestDTO;
-import com.ecommerce.productservice.dtos.ErrorDTO;
 import com.ecommerce.productservice.dtos.UpdateProductRequestDTO;
 import com.ecommerce.productservice.exceptions.ProductNotFoundException;
 import com.ecommerce.productservice.models.Category;
 import com.ecommerce.productservice.models.Product;
-import com.ecommerce.productservice.services.DatabaseService;
-import com.ecommerce.productservice.services.FakeStoreAPIService;
 import com.ecommerce.productservice.services.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.servlet.DispatcherServlet;
 
 import java.util.List;
 

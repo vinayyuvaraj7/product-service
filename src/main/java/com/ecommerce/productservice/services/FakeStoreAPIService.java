@@ -3,12 +3,10 @@ package com.ecommerce.productservice.services;
 import com.ecommerce.productservice.dtos.FakeStoreAPIResponseDTO;
 import com.ecommerce.productservice.dtos.FakeStoreAPIRequestDTO;
 import com.ecommerce.productservice.exceptions.ProductNotFoundException;
-import com.ecommerce.productservice.models.Category;
 import com.ecommerce.productservice.models.Product;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;

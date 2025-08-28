@@ -4,18 +4,19 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import java.util.List;
 
 @Getter
 @Setter
 @Entity
-@ToString
 public class Category extends BaseModel {
     private String name;
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
     @JsonIgnore
-    @ToString.Exclude
+    @Fetch(FetchMode.SELECT)
     private List<Product> products;
+    private int quantity;
 }
