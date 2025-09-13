@@ -5,6 +5,8 @@ import com.ecommerce.productservice.models.Category;
 import com.ecommerce.productservice.models.Product;
 import com.ecommerce.productservice.repositories.CategoryRepository;
 import com.ecommerce.productservice.repositories.ProductRepository;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -16,15 +18,28 @@ public class DatabaseService implements ProductService {
 
     private CategoryRepository categoryRepository;
     private ProductRepository productRepository;
+    private RedisTemplate<String, Object> redisTemplate;
 
-    public DatabaseService(CategoryRepository categoryRepository, ProductRepository productRepository) {
+    public DatabaseService(CategoryRepository categoryRepository,
+                           ProductRepository productRepository,
+                           RedisTemplate<String, Object> redisTemplate) {
         this.categoryRepository = categoryRepository;
         this.productRepository = productRepository;
+        this.redisTemplate = redisTemplate;
     }
 
     @Override
     public ResponseEntity<Product> getProductById(Long id) throws ProductNotFoundException {
+
+        Product productFromRedis = (Product) redisTemplate.opsForValue().get(String.valueOf(id));
+
+        if(productFromRedis != null) {
+            return new ResponseEntity<>(productFromRedis, HttpStatusCode.valueOf(200));
+        }
+
         Optional<Product> productOptional = productRepository.findById(id);
+
+        redisTemplate.opsForValue().set(String.valueOf(id), productOptional.get());
 
         if(productOptional.isPresent()) {
             return ResponseEntity.ok(productOptional.get());

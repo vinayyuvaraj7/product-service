@@ -8,11 +8,13 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.io.Serializable;
+
 @Getter
 @Setter
 @Entity
 @ToString
-public class Product extends BaseModel {
+public class Product extends BaseModel implements Serializable {
     private String title;
     private String description;
     private Double price;
