@@ -4,6 +4,8 @@ import com.ecommerce.productservice.dtos.FakeStoreAPIResponseDTO;
 import com.ecommerce.productservice.dtos.FakeStoreAPIRequestDTO;
 import com.ecommerce.productservice.exceptions.ProductNotFoundException;
 import com.ecommerce.productservice.models.Product;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -64,7 +66,7 @@ public class FakeStoreAPIService implements ProductService {
     }
 
     @Override
-    public List<Product> getAllProducts() {
+    public Page<Product> getAllProducts(int pageNumber, int pageSize) {
         FakeStoreAPIResponseDTO[] responseDTOS = restTemplate.getForObject(
                 "https://fakestoreapi.com/products",
                 FakeStoreAPIResponseDTO[].class);
@@ -75,7 +77,9 @@ public class FakeStoreAPIService implements ProductService {
             productList.add(responseDTO.toProduct());
         }
 
-        return productList;
+        Page<Product> productPage = new PageImpl<>(productList);
+
+        return productPage;
     }
 
     @Override

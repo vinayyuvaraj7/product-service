@@ -8,13 +8,15 @@ import com.ecommerce.productservice.models.Product;
 import com.ecommerce.productservice.services.ProductService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@EnableCaching
 public class ProductServiceController {
 
     private ProductService productService;
@@ -24,10 +26,16 @@ public class ProductServiceController {
         this.productService = productService;
     }
 
+
     @GetMapping("/products")
-    public List<Product> getAllProducts(){
-        return productService.getAllProducts();
+    public Page<Product> getProducts(@RequestParam int pageNumber, @RequestParam int pageSize) {
+        return productService.getAllProducts(pageNumber, pageSize);
     }
+
+//    @GetMapping("/products")
+//    public List<Product> getAllProducts(){
+//        return productService.getAllProducts();
+//    }
 
     @GetMapping("/product/{id}")
     public ResponseEntity<Product> getProductById(@PathVariable("id") Long id) throws ProductNotFoundException {

@@ -5,6 +5,9 @@ import com.ecommerce.productservice.models.Category;
 import com.ecommerce.productservice.models.Product;
 import com.ecommerce.productservice.repositories.CategoryRepository;
 import com.ecommerce.productservice.repositories.ProductRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -39,9 +42,8 @@ public class DatabaseService implements ProductService {
 
         Optional<Product> productOptional = productRepository.findById(id);
 
-        redisTemplate.opsForValue().set(String.valueOf(id), productOptional.get());
-
         if(productOptional.isPresent()) {
+            redisTemplate.opsForValue().set(String.valueOf(id), productOptional.get());
             return ResponseEntity.ok(productOptional.get());
         } else {
             throw new ProductNotFoundException("Product not found");
@@ -66,8 +68,9 @@ public class DatabaseService implements ProductService {
     }
 
     @Override
-    public List<Product> getAllProducts() {
-        List<Product>  productList = productRepository.findAll();
+    public Page<Product> getAllProducts(int pageNumber, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        Page<Product>  productList = productRepository.findAll(pageable);
         return productList;
     }
 

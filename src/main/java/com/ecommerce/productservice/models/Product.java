@@ -9,6 +9,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.io.Serializable;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -34,5 +35,33 @@ public class Product extends BaseModel implements Serializable {
 
     public void setId(Long id){
         this.id=id;
+    }
+
+    public Long getId(){
+        return this.id;
+    }
+
+    public void setCreateTimestamp(Date date){
+        this.createTimestamp=date;
+    }
+
+    public Date getCreateTimestamp(){
+        return this.createTimestamp;
+    }
+
+    public void setUpdateTimestamp(Date date){
+        this.updateTimestamp=date;
+    }
+
+    public Date getUpdateTimestamp(){
+        return this.updateTimestamp;
+    }
+
+    public void setIsDeleted(boolean isDeleted){
+        this.isDeleted=isDeleted;
+    }
+
+    public boolean getIsDeleted(){
+        return this.isDeleted;
     }
 }
